@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Baterías para carros a domicilio en Bogotá. Entrega e instalación rápida. Solicita tu batería por WhatsApp y consulta medios de pago disponibles." />
+  <meta name="theme-color" content="#080712" />
+  <title>Voltix Battery | Baterías a domicilio Bogotá</title>
+  <style>
+    :root{
+      --bg:#060610; --bg2:#0b0c1b; --card:rgba(18,18,39,.68);
+      --purple:#8b5cf6; --purple2:#5b21b6; --blue:#18a8ff; --cyan:#59e6ff;
+      --text:#f7f8ff; --muted:#aeb5ca; --line:rgba(255,255,255,.10);
+      --ok:#35e69a; --shadow:0 24px 70px rgba(0,0,0,.38);
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{
+      font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+      background:var(--bg); color:var(--text); overflow-x:hidden;
+    }
+    body::before{
+      content:""; position:fixed; inset:0; z-index:-3;
+      background:
+        radial-gradient(circle at 15% 10%,rgba(139,92,246,.22),transparent 30%),
+        radial-gradient(circle at 85% 30%,rgba(24,168,255,.18),transparent 28%),
+        linear-gradient(135deg,#05050d 0%,#0b0920 46%,#050b16 100%);
+    }
+    .grid-bg{
+      position:fixed; inset:0; z-index:-2; opacity:.28; pointer-events:none;
+      background-image:linear-gradient(rgba(255,255,255,.035) 1px,transparent 1px),
+      linear-gradient(90deg,rgba(255,255,255,.035) 1px,transparent 1px);
+      background-size:46px 46px; mask-image:linear-gradient(to bottom,black,transparent 85%);
+    }
+    .orb{position:fixed;border-radius:50%;filter:blur(80px);z-index:-1;opacity:.24;animation:float 9s ease-in-out infinite alternate}
+    .orb.one{width:280px;height:280px;background:var(--purple);top:20%;left:-80px}
+    .orb.two{width:320px;height:320px;background:var(--blue);right:-110px;top:55%;animation-delay:-3s}
+    @keyframes float{to{transform:translate(50px,-35px) scale(1.15)}}
+
+    #preloader{position:fixed;inset:0;z-index:9999;background:#05050d;display:grid;place-items:center;transition:.65s ease}
+    #preloader.hide{opacity:0;visibility:hidden}
+    .loader{text-align:center}
+    .battery-loader{width:88px;height:42px;border:2px solid var(--blue);border-radius:8px;padding:5px;position:relative;margin:auto;box-shadow:0 0 24px rgba(24,168,255,.35)}
+    .battery-loader:after{content:"";position:absolute;right:-8px;top:12px;width:6px;height:16px;background:var(--blue);border-radius:0 3px 3px 0}
+    .charge{height:100%;width:0;border-radius:4px;background:linear-gradient(90deg,var(--purple),var(--blue));animation:charge 1.35s ease-in-out infinite}
+    @keyframes charge{0%{width:8%}70%,100%{width:100%}}
+    .loader p{margin-top:18px;color:var(--muted);font-size:12px;letter-spacing:.18em;text-transform:uppercase}
+
+    .container{width:min(1160px,92%);margin:auto}
+    nav{position:fixed;top:0;left:0;width:100%;z-index:1000;background:rgba(5,5,14,.65);backdrop-filter:blur(18px);border-bottom:1px solid var(--line)}
+    .nav-inner{height:76px;display:flex;align-items:center;justify-content:space-between}
+    .brand{display:flex;align-items:center;gap:11px;font-weight:900;letter-spacing:-.04em;font-size:20px}
+    .logo{width:38px;height:38px;border-radius:11px;display:grid;place-items:center;background:linear-gradient(135deg,var(--purple),var(--blue));box-shadow:0 0 28px rgba(100,96,255,.28)}
+    .brand span b{color:var(--cyan)}
+    .links{display:flex;gap:27px;align-items:center}
+    .links a{color:var(--muted);text-decoration:none;font-size:14px;font-weight:600;transition:.2s}
+    .links a:hover{color:#fff}
+    .btn{border:0;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;justify-content:center;gap:9px;padding:14px 20px;border-radius:14px;font-weight:800;color:#fff;background:linear-gradient(135deg,var(--purple),var(--blue));box-shadow:0 12px 30px rgba(72,88,255,.22);transition:.25s}
+    .btn:hover{transform:translateY(-2px);box-shadow:0 16px 38px rgba(72,88,255,.34)}
+    .btn.ghost{background:rgba(255,255,255,.055);border:1px solid var(--line);box-shadow:none}
+
+    .hero{min-height:100vh;display:flex;align-items:center;padding:128px 0 72px}
+    .hero-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:56px;align-items:center}
+    .eyebrow{display:inline-flex;align-items:center;gap:8px;padding:8px 12px;border:1px solid rgba(89,230,255,.2);background:rgba(89,230,255,.07);border-radius:999px;color:#c9f8ff;font-size:12px;font-weight:800;letter-spacing:.08em;text-transform:uppercase}
+    .pulse{width:8px;height:8px;border-radius:50%;background:var(--ok);box-shadow:0 0 0 0 rgba(53,230,154,.5);animation:pulse 1.6s infinite}
+    @keyframes pulse{70%{box-shadow:0 0 0 9px rgba(53,230,154,0)}}
+    h1{font-size:clamp(44px,6.4vw,78px);line-height:.97;letter-spacing:-.065em;margin:22px 0}
+    .gradient-text{background:linear-gradient(90deg,#b895ff,#65d9ff);-webkit-background-clip:text;background-clip:text;color:transparent}
+    .lead{color:var(--muted);font-size:18px;line-height:1.7;max-width:650px}
+    .hero-actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:30px}
+    .micro{display:flex;gap:20px;flex-wrap:wrap;margin-top:30px;color:#d7dbea;font-size:13px}
+    .micro span:before{content:"✓";color:var(--ok);font-weight:900;margin-right:7px}
+
+    .visual{position:relative;min-height:480px;display:grid;place-items:center}
+    .halo{position:absolute;width:390px;height:390px;border-radius:50%;border:1px solid rgba(100,190,255,.18);box-shadow:inset 0 0 70px rgba(86,71,255,.12),0 0 90px rgba(36,155,255,.08);animation:spin 18s linear infinite}
+    .halo:before,.halo:after{content:"";position:absolute;border-radius:50%;border:1px dashed rgba(255,255,255,.12);inset:28px}
+    .halo:after{inset:70px}
+    @keyframes spin{to{transform:rotate(360deg)}}
+    .battery{position:relative;width:min(390px,90%);height:245px;border-radius:28px;background:linear-gradient(145deg,#18172b,#090a13);border:1px solid rgba(255,255,255,.12);box-shadow:var(--shadow),0 0 80px rgba(83,82,255,.14);transform:perspective(900px) rotateY(-8deg) rotateX(4deg);overflow:visible}
+    .battery:before,.battery:after{content:"";position:absolute;top:-17px;width:54px;height:22px;border-radius:7px 7px 2px 2px;background:linear-gradient(#8d93a7,#45495a)}
+    .battery:before{left:52px}.battery:after{right:52px}
+    .battery-face{height:100%;padding:38px;display:flex;flex-direction:column;justify-content:space-between}
+    .bolt{font-size:52px;filter:drop-shadow(0 0 14px rgba(89,230,255,.5))}
+    .battery-name{font-size:30px;font-weight:950;letter-spacing:-.04em}
+    .battery-name b{color:var(--cyan)}
+    .battery-strip{height:6px;width:100%;background:linear-gradient(90deg,var(--purple),var(--blue),var(--cyan));border-radius:10px;box-shadow:0 0 20px rgba(55,180,255,.45)}
+    .floating-card{position:absolute;padding:13px 15px;border-radius:14px;background:rgba(15,16,33,.82);border:1px solid var(--line);backdrop-filter:blur(12px);font-size:12px;font-weight:800;box-shadow:var(--shadow)}
+    .fc1{top:80px;right:-6px}.fc2{bottom:72px;left:-10px}
+
+    section{padding:94px 0}
+    .section-tag{color:var(--cyan);font-size:12px;text-transform:uppercase;letter-spacing:.13em;font-weight:900}
+    h2{font-size:clamp(32px,4vw,50px);letter-spacing:-.045em;margin:10px 0 15px}
+    .section-copy{color:var(--muted);max-width:700px;line-height:1.7}
+    .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:38px}
+    .card{padding:28px;border-radius:22px;background:var(--card);border:1px solid var(--line);backdrop-filter:blur(15px);transition:.3s;position:relative;overflow:hidden}
+    .card:hover{transform:translateY(-6px);border-color:rgba(89,230,255,.25)}
+    .card:before{content:"";position:absolute;width:120px;height:120px;border-radius:50%;background:var(--purple);filter:blur(70px);opacity:.13;right:-50px;top:-50px}
+    .icon{width:46px;height:46px;border-radius:13px;display:grid;place-items:center;background:linear-gradient(135deg,rgba(139,92,246,.25),rgba(24,168,255,.18));border:1px solid var(--line);font-size:22px}
+    .card h3{margin:20px 0 9px;font-size:18px}.card p{color:var(--muted);font-size:14px;line-height:1.65}
+
+    .quote-wrap{display:grid;grid-template-columns:.8fr 1.2fr;gap:28px;align-items:stretch}
+    .quote-info,.form-card{border:1px solid var(--line);background:rgba(14,14,31,.72);border-radius:26px;padding:34px;box-shadow:var(--shadow)}
+    .steps{margin-top:28px;display:grid;gap:18px}
+    .step{display:flex;gap:14px;align-items:flex-start}.num{min-width:34px;height:34px;border-radius:10px;display:grid;place-items:center;background:linear-gradient(135deg,var(--purple),var(--blue));font-weight:900}
+    .step p{color:var(--muted);font-size:13px;margin-top:4px}
+    form{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+    .field{display:grid;gap:7px}.field.full{grid-column:1/-1}
+    label{font-size:12px;color:#cbd0e2;font-weight:800}
+    input,select{width:100%;border:1px solid var(--line);background:#0a0b18;color:#fff;border-radius:13px;padding:14px 15px;outline:none}
+    input:focus,select:focus{border-color:rgba(89,230,255,.5);box-shadow:0 0 0 3px rgba(24,168,255,.08)}
+    form .btn{grid-column:1/-1;margin-top:5px}
+
+    .payments{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:34px}
+    .pay{padding:26px;border-radius:20px;border:1px solid var(--line);background:rgba(255,255,255,.035);display:flex;justify-content:space-between;align-items:center}
+    .pay strong{font-size:22px}.pay small{display:block;color:var(--muted);margin-top:5px}.pay-badge{padding:9px 12px;border-radius:999px;background:rgba(53,230,154,.1);color:#8affc5;font-size:11px;font-weight:900}
+
+    .legal{border-top:1px solid var(--line)}
+    details{border:1px solid var(--line);background:rgba(255,255,255,.025);border-radius:16px;padding:18px 20px;margin-top:12px}
+    summary{cursor:pointer;font-weight:800}
+    details p,details li{color:var(--muted);line-height:1.65;font-size:13px}
+    details p{margin-top:13px} details ul{padding:10px 0 0 18px}
+    footer{padding:36px 0;border-top:1px solid var(--line);color:var(--muted);font-size:12px}
+    .footer-inner{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
+    .whatsapp{position:fixed;right:22px;bottom:22px;z-index:900;width:58px;height:58px;border-radius:18px;display:grid;place-items:center;background:#25D366;color:#fff;text-decoration:none;font-size:26px;box-shadow:0 14px 36px rgba(37,211,102,.3);animation:bob 2.2s ease-in-out infinite}
+    @keyframes bob{50%{transform:translateY(-6px)}}
+    .reveal{opacity:0;transform:translateY(25px);transition:.7s ease}.reveal.show{opacity:1;transform:none}
+
+    @media(max-width:900px){
+      .links a:not(.nav-cta){display:none}.hero-grid,.quote-wrap{grid-template-columns:1fr}.visual{min-height:390px}.cards{grid-template-columns:1fr}.payments{grid-template-columns:1fr}
+      .hero{padding-top:115px}.hero-grid{gap:22px}.visual{order:-1}.battery{height:210px}.halo{width:320px;height:320px}
+    }
+    @media(max-width:560px){
+      .brand span{font-size:17px}.nav-cta{padding:11px 13px;font-size:12px}.visual{min-height:330px}.battery{width:290px;height:185px}.battery-face{padding:28px}.battery-name{font-size:24px}.bolt{font-size:40px}.fc1{right:0}.fc2{left:0}
+      form{grid-template-columns:1fr}.field.full,form .btn{grid-column:1}.quote-info,.form-card{padding:24px}.hero-actions .btn{width:100%}
+    }
+  </style>
+</head>
+<body>
+  <div id="preloader"><div class="loader"><div class="battery-loader"><div class="charge"></div></div><p>Preparando energía</p></div></div>
+  <div class="grid-bg"></div><div class="orb one"></div><div class="orb two"></div>
+
+  <nav>
+    <div class="container nav-inner">
+      <div class="brand"><div class="logo">⚡</div><span>VOLTIX <b>BATTERY</b></span></div>
+      <div class="links">
+        <a href="#servicios">Servicios</a><a href="#cotizar">Cotizar</a><a href="#pagos">Pagos</a><a href="#legal">Legal</a>
+        <a class="btn nav-cta" href="#cotizar">Pedir batería</a>
+      </div>
+    </div>
+  </nav>
+
+  <main>
+    <section class="hero">
+      <div class="container hero-grid">
+        <div class="reveal">
+          <div class="eyebrow"><span class="pulse"></span> Servicio a domicilio en Bogotá</div>
+          <h1>Tu carro vuelve a <span class="gradient-text">encender.</span><br>Nosotros vamos.</h1>
+          <p class="lead">Baterías para carro con entrega e instalación a domicilio. Cuéntanos qué vehículo tienes y te ayudamos a identificar una opción compatible antes de confirmar tu pedido.</p>
+          <div class="hero-actions">
+            <a class="btn wa-link" href="#">💬 Pedir por WhatsApp</a>
+            <a class="btn ghost" href="#cotizar">⚡ Cotizar ahora</a>
+          </div>
+          <div class="micro"><span>Atención en Bogotá</span><span>Instalación a domicilio</span><span>Consulta de compatibilidad</span></div>
+        </div>
+        <div class="visual reveal">
+          <div class="halo"></div>
+          <div class="battery">
+            <div class="battery-face"><div class="bolt">⚡</div><div><div class="battery-name">VOLTIX <b>POWER</b></div><div style="color:#8f98b2;font-size:12px;margin-top:5px">ENERGÍA PARA SEGUIR</div></div><div class="battery-strip"></div></div>
+          </div>
+          <div class="floating-card fc1">📍 Bogotá · Domicilio</div>
+          <div class="floating-card fc2">✓ Asesoría de compatibilidad</div>
+        </div>
+      </div>
+    </section>
+
+    <section id="servicios">
+      <div class="container reveal">
+        <span class="section-tag">Servicio integral</span><h2>Más que vender una batería.</h2>
+        <p class="section-copy">Una experiencia rápida y clara desde la solicitud hasta la instalación, con atención directa y confirmación previa de disponibilidad.</p>
+        <div class="cards">
+          <article class="card"><div class="icon">🚗</div><h3>Entrega a domicilio</h3><p>Solicita atención en Bogotá. Confirmamos cobertura, disponibilidad y condiciones del domicilio antes del despacho.</p></article>
+          <article class="card"><div class="icon">🔋</div><h3>Batería compatible</h3><p>Indícanos marca, modelo, año y motor del vehículo para orientarte sobre referencias compatibles.</p></article>
+          <article class="card"><div class="icon">🛠️</div><h3>Instalación</h3><p>Coordinamos la instalación en el punto acordado, sujeto a condiciones de acceso, seguridad y compatibilidad del vehículo.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section id="cotizar">
+      <div class="container quote-wrap reveal">
+        <div class="quote-info">
+          <span class="section-tag">Cotización rápida</span><h2 style="font-size:38px">Dinos qué carro tienes.</h2>
+          <p class="section-copy">El formulario prepara automáticamente el mensaje para WhatsApp.</p>
+          <div class="steps">
+            <div class="step"><div class="num">1</div><div><strong>Datos del vehículo</strong><p>Marca, modelo y año.</p></div></div>
+            <div class="step"><div class="num">2</div><div><strong>Confirmamos opción</strong><p>Validamos referencia, precio y disponibilidad.</p></div></div>
+            <div class="step"><div class="num">3</div><div><strong>Coordinamos domicilio</strong><p>Confirmamos dirección, cobertura y condiciones de entrega.</p></div></div>
+          </div>
+        </div>
+        <div class="form-card">
+          <form id="quoteForm">
+            <div class="field"><label>Marca</label><input id="marca" required placeholder="Ej. Renault"></div>
+            <div class="field"><label>Modelo</label><input id="modelo" required placeholder="Ej. Logan"></div>
+            <div class="field"><label>Año</label><input id="anio" inputmode="numeric" placeholder="Ej. 2022"></div>
+            <div class="field"><label>Motor</label><input id="motor" placeholder="Ej. 1.6"></div>
+            <div class="field full"><label>Sector / barrio en Bogotá</label><input id="sector" required placeholder="Ej. Suba, Kennedy, Chapinero..."></div>
+            <div class="field full"><label>Medio de pago de interés</label><select id="pago"><option>Quiero conocer las opciones disponibles</option><option>Nequi</option><option>PSE / pago en línea</option></select></div>
+            <button class="btn" type="submit">💬 Enviar cotización por WhatsApp</button>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <section id="pagos">
+      <div class="container reveal">
+        <span class="section-tag">Pagos</span><h2>Fácil desde tu celular.</h2>
+        <p class="section-copy">Consulta con el asesor los medios habilitados para tu pedido antes de realizar cualquier pago.</p>
+        <div class="payments">
+          <div class="pay"><div><strong>Nequi</strong><small>Consulta datos de pago con el asesor.</small></div><span class="pay-badge">DISPONIBLE*</span></div>
+          <div class="pay"><div><strong>PSE</strong><small>Pago en línea cuando el comercio lo tenga habilitado.</small></div><span class="pay-badge">EN LÍNEA*</span></div>
+        </div>
+        <p style="color:#737b94;font-size:11px;margin-top:13px">*La disponibilidad del medio de pago debe confirmarse antes de la compra. No envíes dinero a cuentas o enlaces no confirmados por el comercio.</p>
+      </div>
+    </section>
+
+    <section id="legal" class="legal">
+      <div class="container reveal">
+        <span class="section-tag">Información legal</span><h2>Compra con información clara.</h2>
+        <p class="section-copy">Modelo base de información contractual. Debe ajustarse con la razón social, NIT, dirección, correo, garantías, política de cambios y demás datos reales del comercio antes de publicar.</p>
+        <details><summary>Términos y condiciones</summary><p>El cliente debe suministrar información correcta del vehículo y del lugar de entrega. La cotización final, disponibilidad, referencia, precio, cobertura, tiempo estimado y costo de domicilio —si aplica— se informarán antes de confirmar la compra. Los tiempos pueden variar por tráfico, clima, inventario, ubicación y otras condiciones operativas.</p></details>
+        <details><summary>Garantía y compatibilidad</summary><p>La garantía aplicable debe informarse antes de la compra y depende de la referencia, fabricante y condiciones del producto. El cliente debe conservar factura o comprobante y cumplir las condiciones de uso y diagnóstico establecidas. Nada de esta sección limita los derechos legales del consumidor que resulten aplicables.</p></details>
+        <details><summary>Tratamiento de datos personales</summary><p>Los datos enviados mediante el formulario se utilizan para gestionar la solicitud de cotización y atención comercial. Antes de publicar este sitio, el responsable debe incorporar su identificación, canales para consultas/reclamos y su política real de tratamiento de datos conforme a la normativa aplicable.</p></details>
+        <details><summary>Pagos y seguridad</summary><p>El cliente debe verificar el valor, destinatario y canal autorizado antes de pagar. PSE y Nequi solo deben anunciarse cuando efectivamente estén habilitados para el comercio. Nunca solicitamos claves, códigos de autenticación ni credenciales bancarias.</p></details>
+        <details><summary>Retracto, cambios y devoluciones</summary><p>Los derechos de retracto, reversión, cambios, devoluciones y garantías se atenderán según las circunstancias de la venta y la legislación colombiana aplicable. Antes de publicar, el comercio debe completar aquí su procedimiento real, plazos, canales de atención y datos empresariales.</p></details>
+      </div>
+    </section>
+  </main>
+
+  <footer><div class="container footer-inner"><span>© <span id="year"></span> Voltix Battery · Bogotá, Colombia</span><span>Razón social · NIT · Dirección · Correo: COMPLETAR ANTES DE PUBLICAR</span></div></footer>
+  <a class="whatsapp wa-link" href="#" aria-label="Contactar por WhatsApp">◉</a>
+
+  <script>
+    // CAMBIA SOLO ESTE NÚMERO. Formato Colombia: 57 + número, sin + ni espacios.
+    const WHATSAPP_NUMBER = "573001234567";
+
+    const baseMessage = "Hola, quiero cotizar una batería para mi carro en Bogotá.";
+    document.querySelectorAll(".wa-link").forEach(a=>{
+      a.href=`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(baseMessage)}`;
+      a.target="_blank"; a.rel="noopener";
+    });
+
+    window.addEventListener("load",()=>setTimeout(()=>document.getElementById("preloader").classList.add("hide"),650));
+    document.getElementById("year").textContent=new Date().getFullYear();
+
+    const observer=new IntersectionObserver(entries=>{
+      entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add("show")})
+    },{threshold:.12});
+    document.querySelectorAll(".reveal").forEach(el=>observer.observe(el));
+
+    document.getElementById("quoteForm").addEventListener("submit",e=>{
+      e.preventDefault();
+      const get=id=>document.getElementById(id).value.trim();
+      const msg=`Hola, quiero cotizar una batería a domicilio en Bogotá.
+
+🚗 Marca: ${get("marca")}
+📌 Modelo: ${get("modelo")}
+📅 Año: ${get("anio") || "No indicado"}
+⚙️ Motor: ${get("motor") || "No indicado"}
+📍 Sector/Barrio: ${get("sector")}
+💳 Pago: ${get("pago")}
+
+¿Me pueden confirmar una referencia compatible, precio, disponibilidad y condiciones de entrega?`;
+      window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`,"_blank","noopener");
+    });
+  </script>
+</body>
+</html>
